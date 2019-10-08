@@ -14,6 +14,33 @@ std::vector<Point>& const Figure::getPoints()
     return points;
 }
 
+void Figure::RotateRight()
+{
+	int maxX = 0;
+	int maxY = 0;
+
+	for (Point& point : points)
+	{
+		int x = point.getX();
+		int y = point.getY();
+		if (maxX < x)
+			maxX = x;
+		if (maxY < y)
+			maxY = y;
+	}
+
+	for (Point& point : points)
+	{
+		int oldX = point.getX();
+		point.setX(point.getY());
+		point.setY(maxX - oldX);
+	}
+}
+
+void Figure::RotateLeft()
+{
+}
+
 void Figure::MoveOn(int x, int y)
 {
 	this->x += x;

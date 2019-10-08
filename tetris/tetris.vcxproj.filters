@@ -30,9 +30,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utils\FigureUtils.cpp">
-      <Filter>Source Files\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="src\BaseObjects\Figure.cpp">
       <Filter>Source Files\BaseObjects</Filter>
     </ClCompile>
@@ -40,9 +37,6 @@
       <Filter>Source Files\BaseObjects</Filter>
     </ClCompile>
     <ClCompile Include="src\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Utils\LogHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\MainScene.cpp">
@@ -53,9 +47,6 @@
     <ClInclude Include="src\Consts.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Utils\FigureUtils.hpp">
-      <Filter>Header Files\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="src\BaseObjects\Figure.hpp">
       <Filter>Header Files\BaseObjects</Filter>
     </ClInclude>
@@ -63,9 +54,6 @@
       <Filter>Header Files\BaseObjects</Filter>
     </ClInclude>
     <ClInclude Include="src\Game.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Utils\LogHandler.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\IConsoleScene.hpp">

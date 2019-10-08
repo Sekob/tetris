@@ -5,8 +5,6 @@
 #include <ctime>
 
 #include "../BaseObjects/Figure.hpp"
-#include "../Utils/FigureUtils.hpp"
-
 
 #define EMPTY_CELL ' '
 #define BORDER_CELL '#'

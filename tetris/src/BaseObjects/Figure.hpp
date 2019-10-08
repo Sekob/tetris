@@ -14,6 +14,8 @@ private:
 public:
     Figure(std::vector<Point> & points, int x, int y, char texture = '#');
     std::vector<Point>& const getPoints();
+	void RotateRight();
+	void RotateLeft();
 	void MoveOn(int x, int y);
 	int getX();
 	int getY();

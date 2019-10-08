@@ -38,6 +38,7 @@ void Game::Update()
 {
 	std::this_thread::sleep_for(refreshTime);
 
+	//TODO: add input system
 	if (GetAsyncKeyState(VK_SPACE) == IS_PUSHED)
 		activeScene.KeyPressed(VK_SPACE);
 	if (GetAsyncKeyState(VK_LEFT) == IS_PUSHED)

@@ -37,9 +37,9 @@ bool MainScene::CanMove(Figure& figure, int x, int y)
 
 	for (auto&& point : points)
 	{
-		int64_t realX = (int64_t)x + point.getX();
-		int64_t realY = (int64_t)y - point.getY();
-		int64_t i = realY * width + realX;
+		int realX = x + point.getX();
+		int realY = y - point.getY();
+		size_t i = realY * width + realX;
 		if (i < 0 || i > buffer.size() - 1 || buffer[i] != EMPTY_CELL)
 		{
 			canMove = false;
@@ -81,12 +81,12 @@ void MainScene::MoveDown(Figure& figure)
 void MainScene::RotateFigure(Figure& figure)
 {
 	EraseFigure(figure);
-	FigureUtils::Rotate(figure, FigureUtils::Right);
+	figure.RotateRight();
 	DrawFigure(figure);
 	if (!CanMove(figure, figure.getX(), figure.getY()))
 	{
 		EraseFigure(figure);
-		FigureUtils::Rotate(figure, FigureUtils::Left);
+		figure.RotateLeft();
 		DrawFigure(figure);
 	}
 }

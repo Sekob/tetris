@@ -124,22 +124,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Scene\MainScene.cpp" />
-    <ClCompile Include="src\Utils\LogHandler.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\BaseObjects\Figure.cpp" />
     <ClCompile Include="src\BaseObjects\Point.cpp" />
-    <ClCompile Include="src\Utils\FigureUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Scene\IConsoleScene.hpp" />
     <ClInclude Include="src\Scene\MainScene.hpp" />
-    <ClInclude Include="src\Utils\LogHandler.hpp" />
     <ClInclude Include="src\Game.hpp" />
     <ClInclude Include="src\BaseObjects\Figure.hpp" />
     <ClInclude Include="src\Consts.hpp" />
     <ClInclude Include="src\BaseObjects\Point.hpp" />
-    <ClInclude Include="src\Utils\FigureUtils.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
