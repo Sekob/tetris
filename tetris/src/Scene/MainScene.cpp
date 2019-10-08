@@ -96,7 +96,10 @@ void MainScene::AddRandomFigure()
 	srand(time(0));
 	int randomIndex = 0 + rand() % availableFigures.size();
 	Figure& figure = availableFigures[randomIndex];
+	srand(time(0));
+	randomIndex = 0 + rand() % textures.size();
 	Figure newFigure = figure.Copy();
+	newFigure.setTexture(textures[randomIndex]);
 	figures.push_back(newFigure);
 }
 

@@ -5,7 +5,6 @@
 
 #include "src/BaseObjects/Point.hpp"
 #include "src/BaseObjects/Figure.hpp"
-#include "src/Utils/FigureUtils.hpp"
 #include "src/Game.hpp"
 #include "src/Scene/MainScene.hpp"
 

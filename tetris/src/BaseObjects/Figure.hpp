@@ -20,6 +20,7 @@ public:
 	int getX();
 	int getY();
 	char getTexture();
+	void setTexture(char newTexture);
 	Figure Copy();
 };
  

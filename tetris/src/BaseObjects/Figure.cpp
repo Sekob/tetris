@@ -62,6 +62,11 @@ char Figure::getTexture()
 	return this->texture;
 }
 
+void Figure::setTexture(char newTexture)
+{
+	texture = newTexture;
+}
+
 Figure Figure::Copy()
 {
 	std::vector<Point> pointsCopy;

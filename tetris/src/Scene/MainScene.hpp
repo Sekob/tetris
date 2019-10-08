@@ -23,6 +23,8 @@ class MainScene : public IConsoleScene {
 	std::vector<Figure> figures;
 	std::vector<Figure> availableFigures;
 
+	std::vector<char> textures = { 'A', 'B', 'C', 'D', 'F', 'G', 'E' };
+
 	void EraseFigure(Figure& figure);
 	void DrawFigure(Figure& figure);
 	void FillObject(Figure& figure, char texture);
