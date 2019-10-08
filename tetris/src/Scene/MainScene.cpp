@@ -91,7 +91,7 @@ void MainScene::RotateFigure(Figure& figure)
 	}
 }
 
-void MainScene::AddRandowFigure()
+void MainScene::AddRandomFigure()
 {
 	srand(time(0));
 	int randomIndex = 0 + rand() % availableFigures.size();
@@ -100,18 +100,45 @@ void MainScene::AddRandowFigure()
 	figures.push_back(newFigure);
 }
 
+
+
 void MainScene::RemoveCompletedLines()
 {
+	int lineGap = 0;
+	for (size_t i = bottomBorderY - 1; i > topBorderY; i--)
+	{
+		if (CheckLine(i))
+		{
+			lineGap++;
+		}
+		else if (lineGap != 0)
+		{
+			MoveUncompletedLine(i, i + lineGap);
+		}
+	}
+}
 
+void MainScene::MoveUncompletedLine(int from, int to)
+{
+	for (size_t i = leftBorderX + 1; i < rightBorderX; i++)
+	{
+		buffer[to * width + i] = buffer[from * width + i];
+		buffer[from * width + i] = EMPTY_CELL;
+	}
+}
+
+bool MainScene::CheckLine(int i)
+{
+	for (size_t j = leftBorderX + 1; j < rightBorderX; j++)
+	{
+		if (buffer[i * width + j] == EMPTY_CELL)
+			return false;
+	}
+	return true;
 }
 
 void MainScene::Init()
 {
-	int leftBorderX = width / 2 - 5;
-	int rightBorderX = width / 2 + 5;
-	int topBorder = height / 2 - 8;
-	int bottomBorder = height / 2 + 8;
-
 	//###
 	// #
 	std::vector<Point> points1;
@@ -126,7 +153,7 @@ void MainScene::Init()
 	points1.push_back(point12);
 	points1.push_back(point13);
 	points1.push_back(point14);
-	Figure figure1(points1, leftBorderX + 4, topBorder);
+	Figure figure1(points1, leftBorderX + 4, topBorderY);
 	availableFigures.push_back(figure1);
 	//
 
@@ -144,7 +171,7 @@ void MainScene::Init()
 	points2.push_back(point22);
 	points2.push_back(point23);
 	points2.push_back(point24);
-	Figure figure2(points2, leftBorderX + 4, topBorder);
+	Figure figure2(points2, leftBorderX + 4, topBorderY);
 	availableFigures.push_back(figure2);
 	//
 
@@ -162,7 +189,7 @@ void MainScene::Init()
 	points3.push_back(point32);
 	points3.push_back(point33);
 	points3.push_back(point34);
-	Figure figure3(points3, leftBorderX + 4, topBorder);
+	Figure figure3(points3, leftBorderX + 4, topBorderY);
 	availableFigures.push_back(figure3);
 	//
 
@@ -181,23 +208,23 @@ void MainScene::Init()
 	points4.push_back(point42);
 	points4.push_back(point43);
 	points4.push_back(point44);
-	Figure figure4(points4, leftBorderX + 4, topBorder);
+	Figure figure4(points4, leftBorderX + 4, topBorderY);
 	availableFigures.push_back(figure4);
 	//
 
-	AddRandowFigure();
+	AddRandomFigure();
 
 	buffer.resize((int64_t)width * height, EMPTY_CELL);
 
-	for (int64_t i = topBorder; i < bottomBorder; i++)
+	for (size_t i = topBorderY; i < bottomBorderY; i++)
 	{
 		buffer[i * width + leftBorderX] = BORDER_CELL;
 		buffer[i * width + rightBorderX] = BORDER_CELL;
 	}
 
-	for (int i = leftBorderX; i <= rightBorderX; i++)
+	for (size_t i = leftBorderX; i <= rightBorderX; i++)
 	{
-		buffer[(int64_t)bottomBorder * width + i] = BORDER_CELL;
+		buffer[bottomBorderY * width + i] = BORDER_CELL;
 	}
 }
 
@@ -208,8 +235,8 @@ void MainScene::Update()
 
 	if (!CanMove(activeFigure, activeFigure.getX(), activeFigure.getY() + 1))
 	{
-
-		AddRandowFigure();
+		RemoveCompletedLines();
+		AddRandomFigure();
 		return;
 	}
 

@@ -16,6 +16,11 @@ class MainScene : public IConsoleScene {
 	int height = 25;
 	int ticks = 0;
 
+	int leftBorderX = width / 2 - 5;
+	int rightBorderX = width / 2 + 5;
+	int topBorderY = height / 2 - 8;
+	int bottomBorderY = height / 2 + 8;
+
 	std::vector<char> buffer;
 	std::vector<Figure> figures;
 	std::vector<Figure> availableFigures;
@@ -29,8 +34,10 @@ class MainScene : public IConsoleScene {
 	void MoveLeft(Figure& figure);
 	void MoveDown(Figure& figure);
 	void RotateFigure(Figure& figure);
-	void AddRandowFigure();
+	void AddRandomFigure();
 	void RemoveCompletedLines();
+	void MoveUncompletedLine(int from, int to);
+	bool CheckLine(int i);
 public:
 	virtual void Init() override;
 	virtual void Update() override;
