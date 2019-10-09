@@ -1,6 +1,6 @@
 #include "MainScene.hpp"
 
-void MainScene::FillObject(Figure& figure, char texture)
+void MainScene::FillObject(Figure& figure, char texture, unsigned char color)
 {
 	int x = figure.getX();
 	int y = figure.getY();
@@ -10,20 +10,23 @@ void MainScene::FillObject(Figure& figure, char texture)
 		int realX = x + point.getX();
 		int realY = y - point.getY();
 		int i = realY * width + realX;
-		if (i >= 0)
-			buffer[i] = texture;
+		if (i >= 0) 
+		{
+			buffer[i].Char.AsciiChar = texture;
+			buffer[i].Attributes = color;
+		}
 	}
 }
 
 
 void MainScene::EraseFigure(Figure& figure)
 {
-	FillObject(figure, EMPTY_CELL);
+	FillObject(figure, EMPTY_CELL, EMPTY_COLOR);
 }
 
 void MainScene::DrawFigure(Figure& figure)
 {
-	FillObject(figure, figure.getTexture());
+	FillObject(figure, figure.getTexture(), figure.getColor());
 }
 
 bool MainScene::CanMove(Figure& figure, int x, int y)
@@ -39,8 +42,8 @@ bool MainScene::CanMove(Figure& figure, int x, int y)
 	{
 		int realX = x + point.getX();
 		int realY = y - point.getY();
-		size_t i = realY * width + realX;
-		if (i < 0 || i > buffer.size() - 1 || buffer[i] != EMPTY_CELL)
+		int i = realY * width + realX;
+		if (i < 0 || i > buffer.size() - 1 || (unsigned char)buffer[i].Char.AsciiChar != EMPTY_CELL)
 		{
 			canMove = false;
 			break;
@@ -96,10 +99,16 @@ void MainScene::AddRandomFigure()
 	srand(time(0));
 	int randomIndex = 0 + rand() % availableFigures.size();
 	Figure& figure = availableFigures[randomIndex];
+	Figure newFigure = figure.Copy();
+
 	srand(time(0));
 	randomIndex = 0 + rand() % textures.size();
-	Figure newFigure = figure.Copy();
 	newFigure.setTexture(textures[randomIndex]);
+
+	srand(time(0));
+	randomIndex = 0 + rand() % colors.size();
+	newFigure.setColor(colors[randomIndex]);
+
 	figures.push_back(newFigure);
 }
 
@@ -108,7 +117,8 @@ void MainScene::AddRandomFigure()
 void MainScene::RemoveCompletedLines()
 {
 	int lineGap = 0;
-	for (size_t i = bottomBorderY - 1; i > topBorderY; i--)
+	int lastRow = bottomBorderY - 1;
+	for (size_t i = lastRow; i > topBorderY; i--)
 	{
 		if (CheckLine(i))
 		{
@@ -123,18 +133,27 @@ void MainScene::RemoveCompletedLines()
 
 void MainScene::MoveUncompletedLine(int from, int to)
 {
-	for (size_t i = leftBorderX + 1; i < rightBorderX; i++)
+	int sourceCell = 0;
+	int targetCell = 0;
+	int firstCellInRow = leftBorderX + 1;
+	for (size_t i = firstCellInRow; i < rightBorderX; i++)
 	{
-		buffer[to * width + i] = buffer[from * width + i];
-		buffer[from * width + i] = EMPTY_CELL;
+		targetCell = to * width + i;
+		sourceCell = from * width + i;
+		buffer[targetCell] = buffer[sourceCell];
+		buffer[sourceCell].Char.AsciiChar = EMPTY_CELL;
+		buffer[sourceCell].Attributes = EMPTY_COLOR;
 	}
 }
 
 bool MainScene::CheckLine(int i)
 {
-	for (size_t j = leftBorderX + 1; j < rightBorderX; j++)
+	int cellIndex = 0;
+	int firstCellInRow = leftBorderX + 1;
+	for (size_t j = firstCellInRow; j < rightBorderX; j++)
 	{
-		if (buffer[i * width + j] == EMPTY_CELL)
+		cellIndex = i * width + j;
+		if ((unsigned char)buffer[cellIndex].Char.AsciiChar == EMPTY_CELL)
 			return false;
 	}
 	return true;
@@ -217,17 +236,33 @@ void MainScene::Init()
 
 	AddRandomFigure();
 
-	buffer.resize((int64_t)width * height, EMPTY_CELL);
+	CHAR_INFO emptyChar;
+	emptyChar.Char.AsciiChar = EMPTY_CELL;
+	emptyChar.Attributes = EMPTY_COLOR;
 
+	buffer.resize((int64_t)width * height, emptyChar);
+
+	int leftBorderCellIndex = 0;
+	int rightBorderCellIndex = 0;
+
+	CHAR_INFO borderCell;
+	borderCell.Char.AsciiChar = BORDER_CELL;
+	borderCell.Attributes = BORDER_COLOR;
 	for (size_t i = topBorderY; i < bottomBorderY; i++)
 	{
-		buffer[i * width + leftBorderX] = BORDER_CELL;
-		buffer[i * width + rightBorderX] = BORDER_CELL;
+		leftBorderCellIndex = i * width + leftBorderX;
+		rightBorderCellIndex = i * width + rightBorderX;
+
+		buffer[leftBorderCellIndex] = borderCell;
+		buffer[rightBorderCellIndex] = borderCell;
 	}
 
+	int bottomBorderCellIndex = 0;
 	for (size_t i = leftBorderX; i <= rightBorderX; i++)
 	{
-		buffer[bottomBorderY * width + i] = BORDER_CELL;
+		bottomBorderCellIndex = bottomBorderY * width + i;
+		buffer[bottomBorderCellIndex].Char.AsciiChar = BORDER_CELL;
+		buffer[bottomBorderCellIndex].Attributes = BORDER_COLOR;
 	}
 }
 
@@ -261,7 +296,7 @@ int MainScene::Height()
 	return height;
 }
 
-std::vector<char>& MainScene::Buffer()
+std::vector<CHAR_INFO>& MainScene::Buffer()
 {
 	return buffer;
 }

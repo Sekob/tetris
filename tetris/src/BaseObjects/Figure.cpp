@@ -1,11 +1,12 @@
 #include "Figure.hpp"
 
 
-Figure::Figure(std::vector<Point> & points, int x, int y, char texture): 
+Figure::Figure(std::vector<Point> & points, int x, int y, char texture, unsigned char color): 
 	points(points), 
 	x(x), 
 	y(y), 
-	texture(texture)
+	texture(texture),
+	color(color)
 {    
 }
 
@@ -60,6 +61,16 @@ int Figure::getY()
 char Figure::getTexture()
 {
 	return this->texture;
+}
+
+unsigned char Figure::getColor()
+{
+	return color;
+}
+
+void Figure::setColor(unsigned char newColor)
+{
+	color = newColor;
 }
 
 void Figure::setTexture(char newTexture)

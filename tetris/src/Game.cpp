@@ -27,6 +27,9 @@ Game::Game(IConsoleScene& scene) : activeScene(scene)
 		activeScene.SetSceneInfo(consoleBufferInfo.dwSize.X, consoleBufferInfo.dwSize.Y);
 	}
 
+	CONSOLE_FONT_INFOEX fontInfo;
+	auto result = GetCurrentConsoleFontEx(outConsole, true, &fontInfo);
+
 	screenWidth = activeScene.Width();
 	screenHeight = activeScene.Height();
 
@@ -50,5 +53,12 @@ void Game::Update()
 
 	DWORD written = 0;
 	activeScene.Update();
-	WriteConsoleOutputCharacter(this->outConsole, activeScene.Buffer().data(), this->screenHeight * this->screenWidth, { 0,0 }, &written);
+
+	COORD characterBufferSize = { screenWidth, screenHeight };
+	COORD characterPosition = { 0, 0 };
+	SMALL_RECT consoleWriteArea = { 0, 0, screenWidth - 1, screenHeight - 1 };
+
+
+	WriteConsoleOutputA(outConsole, activeScene.Buffer().data(), characterBufferSize, characterPosition, &consoleWriteArea);
+	//WriteConsoleOutputCharacter(this->outConsole, activeScene.Buffer().data(), this->screenHeight * this->screenWidth, { 0,0 }, &written);
 }
