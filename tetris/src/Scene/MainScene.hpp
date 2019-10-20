@@ -1,15 +1,21 @@
 #pragma once
 #include <windows.h>
-
-#include "IConsoleScene.hpp"
 #include <ctime>
 
+#include "IConsoleScene.hpp"
 #include "../BaseObjects/Figure.hpp"
+#include "../Figures/LFigure.hpp"
+#include "../Figures/JFigure.hpp"
+#include "../Figures/OFigure.hpp"
+#include "../Figures/TFigure.hpp"
+#include "../Figures/SFigure.hpp"
+#include "../Figures/ZFigure.hpp"
+#include "../Figures/IFigure.hpp"
 
 #define EMPTY_CELL (unsigned char)219
 #define EMPTY_COLOR 0
 #define BORDER_CELL '#'
-#define BORDER_COLOR (BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE)
+#define FULL_WHITE_COLOR (BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE)
 
 class MainScene : public IConsoleScene {
 	int width = 50;

@@ -27,9 +27,6 @@ Game::Game(IConsoleScene& scene) : activeScene(scene)
 		activeScene.SetSceneInfo(consoleBufferInfo.dwSize.X, consoleBufferInfo.dwSize.Y);
 	}
 
-	CONSOLE_FONT_INFOEX fontInfo;
-	auto result = GetCurrentConsoleFontEx(outConsole, true, &fontInfo);
-
 	screenWidth = activeScene.Width();
 	screenHeight = activeScene.Height();
 

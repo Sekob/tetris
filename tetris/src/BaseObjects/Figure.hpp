@@ -5,7 +5,7 @@
 
 class Figure
 {
-private:
+protected:
 	int x = 0;
 	int y = 0;
     std::vector<Point>  points;
@@ -14,6 +14,7 @@ private:
 
 public:
     Figure(std::vector<Point> & points, int x, int y, char texture = '#', unsigned char color= 255);
+	Figure();
     std::vector<Point>& getPoints();
 	void RotateRight();
 	void RotateLeft();

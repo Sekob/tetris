@@ -161,78 +161,27 @@ bool MainScene::CheckLine(int i)
 
 void MainScene::Init()
 {
-	//###
-	// #
-	std::vector<Point> points1;
-	points1.reserve(4);
+	IFigure ifigure(leftBorderX + 4, topBorderY);
+	availableFigures.push_back(ifigure);
 
-	Point point11(0, 1, 0);
-	Point point12(1, 1, 0);
-	Point point13(2, 1, 0);
-	Point point14(1, 0, 0);
+	TFigure tfigure(leftBorderX + 4, topBorderY);
+	availableFigures.push_back(tfigure);
 
-	points1.push_back(point11);
-	points1.push_back(point12);
-	points1.push_back(point13);
-	points1.push_back(point14);
-	Figure figure1(points1, leftBorderX + 4, topBorderY);
-	availableFigures.push_back(figure1);
-	//
+	SFigure sfigure(leftBorderX + 4, topBorderY);
+	availableFigures.push_back(sfigure);
 
-	//##
-	// ##
-	std::vector<Point> points2;
-	points2.reserve(4);
+	ZFigure zfigure(leftBorderX + 4, topBorderY);
+	availableFigures.push_back(zfigure);
 
-	Point point21(0, 1, 0);
-	Point point22(1, 1, 0);
-	Point point23(2, 0, 0);
-	Point point24(1, 0, 0);
+	OFigure ofigure(leftBorderX + 4, topBorderY);
+	availableFigures.push_back(ofigure);
 
-	points2.push_back(point21);
-	points2.push_back(point22);
-	points2.push_back(point23);
-	points2.push_back(point24);
-	Figure figure2(points2, leftBorderX + 4, topBorderY);
-	availableFigures.push_back(figure2);
-	//
+	LFigure lfigure(leftBorderX + 4, topBorderY);
+	availableFigures.push_back(lfigure);
 
-	//##
-	//##
-	std::vector<Point> points3;
-	points3.reserve(4);
+	JFigure Jfigure(leftBorderX + 4, topBorderY);
+	availableFigures.push_back(Jfigure);
 
-	Point point31(0, 1, 0);
-	Point point32(1, 1, 0);
-	Point point33(1, 0, 0);
-	Point point34(0, 0, 0);
-
-	points3.push_back(point31);
-	points3.push_back(point32);
-	points3.push_back(point33);
-	points3.push_back(point34);
-	Figure figure3(points3, leftBorderX + 4, topBorderY);
-	availableFigures.push_back(figure3);
-	//
-
-	//#
-	//#
-	//##
-	std::vector<Point> points4;
-	points4.reserve(4);
-
-	Point point41(0, 2, 0);
-	Point point42(0, 1, 0);
-	Point point43(1, 0, 0);
-	Point point44(0, 0, 0);
-
-	points4.push_back(point41);
-	points4.push_back(point42);
-	points4.push_back(point43);
-	points4.push_back(point44);
-	Figure figure4(points4, leftBorderX + 4, topBorderY);
-	availableFigures.push_back(figure4);
-	//
 
 	AddRandomFigure();
 
@@ -247,7 +196,7 @@ void MainScene::Init()
 
 	CHAR_INFO borderCell;
 	borderCell.Char.AsciiChar = BORDER_CELL;
-	borderCell.Attributes = BORDER_COLOR;
+	borderCell.Attributes = FULL_WHITE_COLOR;
 	for (size_t i = topBorderY; i < bottomBorderY; i++)
 	{
 		leftBorderCellIndex = i * width + leftBorderX;
@@ -262,7 +211,7 @@ void MainScene::Init()
 	{
 		bottomBorderCellIndex = bottomBorderY * width + i;
 		buffer[bottomBorderCellIndex].Char.AsciiChar = BORDER_CELL;
-		buffer[bottomBorderCellIndex].Attributes = BORDER_COLOR;
+		buffer[bottomBorderCellIndex].Attributes = FULL_WHITE_COLOR;
 	}
 }
 

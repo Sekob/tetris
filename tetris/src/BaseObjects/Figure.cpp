@@ -10,6 +10,10 @@ Figure::Figure(std::vector<Point> & points, int x, int y, char texture, unsigned
 {    
 }
 
+Figure::Figure()
+{
+}
+
 std::vector<Point>& const Figure::getPoints()
 {
     return points;

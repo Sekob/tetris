@@ -123,6 +123,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Figures\IFigure.cpp" />
+    <ClCompile Include="src\Figures\JFigure.cpp" />
+    <ClCompile Include="src\Figures\LFigure.cpp" />
+    <ClCompile Include="src\Figures\OFigure.cpp" />
+    <ClCompile Include="src\Figures\SFigure.cpp" />
+    <ClCompile Include="src\Figures\TFigure.cpp" />
+    <ClCompile Include="src\Figures\ZFigure.cpp" />
     <ClCompile Include="src\Scene\MainScene.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -131,6 +138,13 @@
     <ClCompile Include="src\Utils\LogHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Figures\IFigure.hpp" />
+    <ClInclude Include="src\Figures\JFigure.hpp" />
+    <ClInclude Include="src\Figures\LFigure.hpp" />
+    <ClInclude Include="src\Figures\OFigure.hpp" />
+    <ClInclude Include="src\Figures\SFigure.hpp" />
+    <ClInclude Include="src\Figures\TFigure.hpp" />
+    <ClInclude Include="src\Figures\ZFigure.hpp" />
     <ClInclude Include="src\Scene\IConsoleScene.hpp" />
     <ClInclude Include="src\Scene\MainScene.hpp" />
     <ClInclude Include="src\Game.hpp" />
