@@ -1,5 +1,6 @@
 #include "Game.hpp"
 
+//TODO: save and setup console and restore on destruction
 Game::Game(IConsoleScene& scene) : activeScene(scene)
 {
 	outConsole = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
@@ -31,6 +32,10 @@ Game::Game(IConsoleScene& scene) : activeScene(scene)
 	screenHeight = activeScene.Height();
 
 	activeScene.Init();
+
+	inputHandler.SetOnInputEvent([this](int button) {
+		this->activeScene.KeyPressed(button);
+		});
 }
 
 
@@ -38,24 +43,12 @@ void Game::Update()
 {
 	std::this_thread::sleep_for(refreshTime);
 
-	//TODO: add input system
-	if (GetAsyncKeyState(VK_SPACE) == IS_PUSHED)
-		activeScene.KeyPressed(VK_SPACE);
-	if (GetAsyncKeyState(VK_LEFT) == IS_PUSHED)
-		activeScene.KeyPressed(VK_LEFT);
-	if (GetAsyncKeyState(VK_RIGHT) == IS_PUSHED)
-		activeScene.KeyPressed(VK_RIGHT);
-	if (GetAsyncKeyState(VK_DOWN) == IS_PUSHED)
-		activeScene.KeyPressed(VK_DOWN);
-
-	DWORD written = 0;
+	inputHandler.Update();
 	activeScene.Update();
 
 	COORD characterBufferSize = { screenWidth, screenHeight };
 	COORD characterPosition = { 0, 0 };
 	SMALL_RECT consoleWriteArea = { 0, 0, screenWidth - 1, screenHeight - 1 };
 
-
 	WriteConsoleOutputA(outConsole, activeScene.Buffer().data(), characterBufferSize, characterPosition, &consoleWriteArea);
-	//WriteConsoleOutputCharacter(this->outConsole, activeScene.Buffer().data(), this->screenHeight * this->screenWidth, { 0,0 }, &written);
 }

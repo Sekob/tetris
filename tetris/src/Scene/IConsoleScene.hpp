@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
 
-class IConsoleScene
+#include "../BaseObjects/IUpdatable.hpp"
+
+class IConsoleScene: public IUpdatable
 {
 public:
 	virtual void Init() = 0;
