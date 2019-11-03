@@ -1,7 +1,7 @@
 #include "Game.hpp"
 
 //TODO: save and setup console and restore on destruction
-Game::Game(IConsoleScene& scene) : activeScene(scene)
+Game::Game(IConsoleScene &scene) : activeScene(scene)
 {
 	outConsole = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
 	if (outConsole == INVALID_HANDLE_VALUE)
@@ -33,11 +33,10 @@ Game::Game(IConsoleScene& scene) : activeScene(scene)
 
 	activeScene.Init();
 
-	inputHandler.SetOnInputEvent([this](int button) {
-		this->activeScene.KeyPressed(button);
-		});
-}
+	auto inputEvent = [this](int button) { this->activeScene.KeyPressed(button); };
 
+	inputHandler.SetOnInputEvent(inputEvent);
+}
 
 void Game::Update()
 {
@@ -46,9 +45,9 @@ void Game::Update()
 	inputHandler.Update();
 	activeScene.Update();
 
-	COORD characterBufferSize = { screenWidth, screenHeight };
-	COORD characterPosition = { 0, 0 };
-	SMALL_RECT consoleWriteArea = { 0, 0, screenWidth - 1, screenHeight - 1 };
+	COORD characterBufferSize = {screenWidth, screenHeight};
+	COORD characterPosition = {0, 0};
+	SMALL_RECT consoleWriteArea = {0, 0, screenWidth - 1, screenHeight - 1};
 
 	WriteConsoleOutputA(outConsole, activeScene.Buffer().data(), characterBufferSize, characterPosition, &consoleWriteArea);
 }

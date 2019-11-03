@@ -2,16 +2,13 @@
 
 void InputHandler::Update()
 {
-    if (onInputEvent)
+    if (!onInputEvent)
+        return;
+    
+    for(int key : interestingKeys)
     {
-        if (GetAsyncKeyState(VK_SPACE) == IS_PUSHED)
-            onInputEvent(VK_SPACE);
-        if (GetAsyncKeyState(VK_LEFT) == IS_PUSHED)
-            onInputEvent(VK_LEFT);
-        if (GetAsyncKeyState(VK_RIGHT) == IS_PUSHED)
-            onInputEvent(VK_RIGHT);
-        if (GetAsyncKeyState(VK_DOWN) == IS_PUSHED)
-            onInputEvent(VK_DOWN);
+        if(GetAsyncKeyState(key) == IS_PUSHED)
+            onInputEvent(key);
     }
 }
 

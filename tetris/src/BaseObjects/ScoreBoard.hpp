@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BaseObjects/IUpdatable.hpp"
+#include "IUpdatable.hpp"
 
 class ScoreBoard: public IUpdatable
 {

@@ -54,17 +54,17 @@ void Figure::MoveOn(int x, int y)
 
 int Figure::getX()
 {
-	return this->x;
+	return x;
 }
 
 int Figure::getY()
 {
-	return this->y;
+	return y;
 }
 
 char Figure::getTexture()
 {
-	return this->texture;
+	return texture;
 }
 
 unsigned char Figure::getColor()

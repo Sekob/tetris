@@ -19,6 +19,7 @@ class Game: public IUpdatable
 	short screenHeight = 50;
 	int ticks = 0;
 	HANDLE outConsole;
+
 	IConsoleScene& activeScene;
 	
 	InputHandler inputHandler;
